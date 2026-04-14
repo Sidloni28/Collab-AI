@@ -335,7 +335,7 @@ export function CreatorDashboardContent({ activeTab, userId }: CreatorDashboardC
           <div className="space-y-6">
             <div className="mb-6">
               <h2 className="text-3xl font-bold mb-2">Hello {creatorName}! 👋</h2>
-              <p className="text-muted-foreground">Welcome to Collab AI. Here's your dashboard overview.</p>
+              <p className="text-muted-foreground">Welcome to Collab AI. Here&apos;s your dashboard overview.</p>
               {socialMedia && <p className="text-sm text-muted-foreground mt-2">Connected Platform: <span className="font-semibold">{socialMedia}</span></p>}
             </div>
 
@@ -814,7 +814,7 @@ export function CreatorDashboardContent({ activeTab, userId }: CreatorDashboardC
                         ))}
                       </div>
                     </div>
-                    <p className="text-sm italic">"{f.comment}"</p>
+                    <p className="text-sm italic">&quot;{f.comment}&quot;</p>
                   </Card>
                 ))
               )}

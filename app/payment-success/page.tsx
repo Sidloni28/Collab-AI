@@ -17,7 +17,7 @@ export default function PaymentSuccessPage() {
         </p>
         
         <div className="bg-muted p-4 rounded-lg mb-6 text-left">
-          <h3 className="font-semibold mb-3">What's Next?</h3>
+          <h3 className="font-semibold mb-3">What&apos;s Next?</h3>
           <ul className="space-y-2 text-sm text-muted-foreground">
             <li>✓ Complete your creator profile</li>
             <li>✓ Upload your portfolio</li>
