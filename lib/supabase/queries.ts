@@ -191,7 +191,7 @@ export async function inviteCreator(brandId: string, creatorId: string, campaign
       creator_id: creatorId,
       campaign_id: campaignId,
       status: "Pending",
-      compensation: 0, 
+      compensation: 0,
       posts_per_month: 1
     })
 
@@ -529,7 +529,7 @@ export async function uploadDeliverableFile(file: File, userId: string): Promise
 /** Generate a short-lived signed URL for a private file */
 export async function getDeliverableSignedUrl(path: string): Promise<string | null> {
   const supabase = createClient()
-  
+
   // If the path starts with http, it's a legacy public link or an external link
   if (path.startsWith('http')) return path
 
