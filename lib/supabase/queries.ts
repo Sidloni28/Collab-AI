@@ -138,7 +138,7 @@ export async function createCampaign(campaign: {
 
   if (error) {
     console.error("Error creating campaign:", error)
-    return null
+    throw error // Throw so the UI catch block can show the specific message
   }
   return data
 }
