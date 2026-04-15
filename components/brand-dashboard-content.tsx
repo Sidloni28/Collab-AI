@@ -162,16 +162,22 @@ export function BrandDashboardContent({ activeTab, onTabChange, userId }: { acti
       description: formData.description,
       budget: parseInt(formData.budget),
       deadline: formData.deadline,
-      status: formData.status,
+      status: formData.status as any,
     }
 
-    const result = await createCampaign(newCampaignData)
-    if (result) {
-      setCampaignsList([result, ...campaignsList])
-      setFormData({ title: "", description: "", budget: "", deadline: "", type: "Paid", status: "Active" })
-      setIsCreateCampaignOpen(false)
-    } else {
-      alert("Failed to create campaign")
+    try {
+      const result = await createCampaign(newCampaignData)
+      if (result) {
+        setCampaignsList([result, ...campaignsList])
+        setFormData({ title: "", description: "", budget: "", deadline: "", type: "Paid", status: "Active" })
+        setIsCreateCampaignOpen(false)
+        alert("Campaign created successfully! 🎉")
+      } else {
+        alert("Failed to create campaign. Please check the console for details.")
+      }
+    } catch (err: any) {
+      console.error("Create campaign catch error:", err)
+      alert(`Error creating campaign: ${err.message || "Unknown error"}`)
     }
   }
 
