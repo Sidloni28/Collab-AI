@@ -3,6 +3,7 @@ export interface User {
   role: "brand" | "creator"
   name: string
   email: string
+  //optional
   company?: string
   niche?: string
   followers?: number
@@ -30,6 +31,7 @@ export interface Campaign {
   title: string
   budget: number
   deadline: string
+  //Union Type - Have Multiple Options
   type: "Paid" | "Barter"
   category: string
   description: string
@@ -77,7 +79,7 @@ export interface Feedback {
   date: string
 }
 
-// Demo data
+// Demo data - Demo Influencers Data
 export const DEMO_INFLUENCERS: Influencer[] = [
   {
     id: "inf_1",
