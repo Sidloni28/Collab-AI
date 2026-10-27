@@ -2,11 +2,49 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Users, Zap, BarChart3, CreditCard, X } from 'lucide-react'
-import { ThemeToggle } from "@/components/theme-toggle"
+import {
+  ArrowRight,
+  ArrowDown,
+  Users,
+  Zap,
+  BarChart3,
+  CreditCard,
+  X,
+  CheckCircle2,
+} from "lucide-react"
 import { motion } from "framer-motion"
-import { fadeInUp, fadeIn, staggerContainer, scaleIn } from "@/lib/animations"
+import { fadeInUp, staggerContainer, scaleIn } from "@/lib/animations"
+
+// ─── Illustrative creator data for the hero product preview ───────────────────
+// These are example personas — not real accounts or verifiable claims.
+const heroCreators = [
+  {
+    name: "Priya Mehta",
+    handle: "@priyamehta",
+    followers: "218K",
+    niche: "Fashion",
+    photo: "/fashion-blogger-female.jpg",
+    match: "Lifestyle Brand",
+  },
+  {
+    name: "James Park",
+    handle: "@jamestechreviews",
+    followers: "94K",
+    niche: "Tech",
+    photo: "/tech-content-creator.jpg",
+    match: "Consumer App",
+  },
+  {
+    name: "Sophie Laurent",
+    handle: "@sophiebeauty",
+    followers: "155K",
+    niche: "Beauty",
+    photo: "/beauty-makeup-influencer.jpg",
+    match: "Skincare Brand",
+  },
+]
 
 export default function LandingPage() {
   const [activeFeature, setActiveFeature] = useState<string | null>(null)
@@ -14,14 +52,15 @@ export default function LandingPage() {
   const handleSmoothScroll = (id: string) => {
     const element = document.getElementById(id)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+      element.scrollIntoView({ behavior: "smooth" })
     }
   }
 
   const featureDetails = {
     "Find & Connect": {
       title: "Discover Creators",
-      description: "Find and connect with creators that align with your brand values and audience.",
+      description:
+        "Find and connect with creators that align with your brand values and audience.",
       features: [
         "Search by niche, follower count, and engagement rate",
         "View creator profiles and previous campaigns",
@@ -31,7 +70,8 @@ export default function LandingPage() {
     },
     "Manage Collaborations": {
       title: "Collaboration Management",
-      description: "Keep all your campaigns organized in one centralized workspace.",
+      description:
+        "Keep all your campaigns organized in one centralized workspace.",
       features: [
         "Create and manage multiple campaigns simultaneously",
         "Track deliverables and content submissions",
@@ -41,7 +81,8 @@ export default function LandingPage() {
     },
     "Track Payments": {
       title: "Payment Tracking",
-      description: "Automate payments and keep full transparency on all transactions.",
+      description:
+        "Automate payments and keep full transparency on all transactions.",
       features: [
         "Secure payment processing between brands and creators",
         "Invoice generation and automated reminders",
@@ -51,7 +92,8 @@ export default function LandingPage() {
     },
     "Onboarding Process": {
       title: "Creator Onboarding",
-      description: "Get started quickly with our comprehensive onboarding process designed for creators.",
+      description:
+        "Get started quickly with our comprehensive onboarding process designed for creators.",
       features: [
         "Profile setup and verification in minutes",
         "Portfolio and media uploading",
@@ -86,90 +128,348 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation */}
+
+      {/* ── NAVIGATION ─────────────────────────────────────────────────────── */}
       <nav className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="text-xl font-bold text-primary">Collab AI</div>
-            <div className="hidden md:flex gap-8">
-              <button onClick={() => handleSmoothScroll('features')} className="text-sm text-muted-foreground hover:text-foreground transition cursor-pointer">
+
+            {/* Logo wordmark */}
+            <Link href="/" className="flex items-center gap-2 flex-shrink-0 group">
+              <Image
+                src="/icon.svg"
+                alt="Collab AI logo"
+                width={28}
+                height={28}
+                className="rounded-md transition-opacity group-hover:opacity-80"
+              />
+              <span className="text-[17px] font-bold text-foreground tracking-tight">
+                Collab AI
+              </span>
+            </Link>
+
+            {/* Center navigation */}
+            <div className="hidden md:flex items-center gap-0.5">
+              <button
+                id="nav-for-brands"
+                onClick={() => handleSmoothScroll("for-brands")}
+                className="px-3.5 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-all cursor-pointer"
+              >
+                For Brands
+              </button>
+              <button
+                id="nav-for-creators"
+                onClick={() => handleSmoothScroll("for-creators")}
+                className="px-3.5 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-all cursor-pointer"
+              >
+                For Creators
+              </button>
+              <button
+                id="nav-features"
+                onClick={() => handleSmoothScroll("features")}
+                className="px-3.5 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-all cursor-pointer"
+              >
                 Features
               </button>
-              <button onClick={() => handleSmoothScroll('testimonials')} className="text-sm text-muted-foreground hover:text-foreground transition cursor-pointer">
-                Testimonials
-              </button>
-              <button onClick={() => handleSmoothScroll('contact')} className="text-sm text-muted-foreground hover:text-foreground transition cursor-pointer">
-                Contact
-              </button>
-              <Link href="/pricing" className="text-sm text-muted-foreground hover:text-foreground transition">
+              <Link
+                href="/pricing"
+                className="px-3.5 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-all"
+              >
                 Pricing
               </Link>
             </div>
-            <div className="flex gap-2 items-center">
-              <ThemeToggle />
-              <Button variant="outline" asChild>
-                <Link href="/login">Sign In</Link>
+
+            {/* Right actions */}
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" size="sm" asChild className="hidden sm:inline-flex">
+                <Link href="/login">Log in</Link>
               </Button>
-              <Button asChild>
-                <Link href="/signup">Get Started</Link>
+              <Button
+                id="nav-get-started"
+                size="sm"
+                asChild
+                className="rounded-full px-4 shadow-sm"
+              >
+                <Link href="/signup" className="gap-1.5">
+                  Get Started <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
               </Button>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 relative">
-        {/* Animated gradient background */}
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          <motion.div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.5, 0.3],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        </div>
+      {/* ── HERO SECTION ────────────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden" aria-label="Hero">
+        {/* Background: dual-tone soft radial gradients — no glow blobs or animated circles */}
+        <div
+          className="absolute inset-0 -z-10 pointer-events-none"
+          aria-hidden="true"
+          style={{
+            background:
+              "radial-gradient(ellipse 72% 55% at 72% 42%, var(--teal-light), transparent 70%), " +
+              "radial-gradient(ellipse 50% 40% at 22% 70%, oklch(0.65 0.15 260 / 0.06), transparent 80%)",
+          }}
+        />
 
-        <motion.div className="text-center" variants={staggerContainer} initial="initial" animate="animate">
-          <motion.h1 
-            className="text-5xl sm:text-6xl font-bold tracking-tight text-foreground mb-6 text-balance"
-            variants={fadeInUp}
-          >
-            Empower Your Creator Marketing
-          </motion.h1>
-          <motion.p 
-            className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-balance"
-            variants={fadeInUp}
-          >
-            Connect brands with creators. Manage campaigns, track payments, and measure results—all in one platform.
-          </motion.p>
-          <motion.div 
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            variants={fadeInUp}
-          >
-            <Button size="lg" asChild>
-              <Link href="/signup?role=brand" className="gap-2">
-                For Brands <ArrowRight className="w-4 h-4" />
-              </Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/signup?role=creator" className="gap-2">
-                For Creators <ArrowRight className="w-4 h-4" />
-              </Link>
-            </Button>
-          </motion.div>
-        </motion.div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 lg:pt-28 lg:pb-36">
+          <div className="grid grid-cols-1 lg:grid-cols-[56%_44%] gap-10 lg:gap-6 items-center">
+
+            {/* ── Left column: Copy ─────────────────────────────────────────── */}
+            <motion.div
+              variants={staggerContainer}
+              initial="initial"
+              animate="animate"
+              className="flex flex-col"
+            >
+              {/* Eyebrow */}
+              <motion.div variants={fadeInUp} className="mb-6">
+                <span
+                  className="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-semibold tracking-widest uppercase"
+                  style={{
+                    background: "oklch(0.96 0.015 260 / 0.55)",
+                    borderColor: "oklch(0.35 0.15 260 / 0.18)",
+                    color: "oklch(0.35 0.15 260)",
+                  }}
+                >
+                  <span
+                    className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                    style={{ background: "oklch(0.35 0.15 260)" }}
+                    aria-hidden="true"
+                  />
+                  Creator × Brand Collaboration
+                </span>
+              </motion.div>
+
+              {/* Headline — three distinct lines, third line accented */}
+              <motion.h1
+                variants={fadeInUp}
+                className="font-extrabold leading-[1.08] tracking-tight text-foreground mb-6"
+                style={{ fontSize: "clamp(38px, 4.8vw, 62px)" }}
+              >
+                <span className="block">Discover Creators.</span>
+                <span className="block">Find Brands.</span>
+                <span
+                  className="block italic"
+                  style={{
+                    color: "oklch(0.35 0.15 260)",
+                    fontSize: "clamp(44px, 5.5vw, 70px)",
+                  }}
+                >
+                  Collaborate Smarter.
+                </span>
+              </motion.h1>
+
+              {/* Supporting text */}
+              <motion.p
+                variants={fadeInUp}
+                className="text-[17px] leading-[1.7] text-muted-foreground mb-8 max-w-[460px]"
+              >
+                Collab AI brings brands and creators together in one organized space.
+                Brands discover relevant creators. Creators find meaningful partnership
+                opportunities. Built for real collaborations.
+              </motion.p>
+
+              {/* CTAs */}
+              <motion.div
+                variants={fadeInUp}
+                className="flex flex-col sm:flex-row gap-3 mb-9"
+              >
+                <Button
+                  id="hero-get-started"
+                  size="lg"
+                  asChild
+                  className="rounded-full px-7 h-12 text-[15px] font-semibold shadow-md"
+                  style={{ boxShadow: "0 4px 20px oklch(0.35 0.15 260 / 0.25)" }}
+                >
+                  <Link href="/signup" className="gap-2">
+                    Get Started <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </Button>
+                <Button
+                  id="hero-see-how"
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full px-7 h-12 text-[15px] gap-2"
+                  onClick={() => handleSmoothScroll("features")}
+                >
+                  See How It Works
+                  <ArrowDown className="w-4 h-4" />
+                </Button>
+              </motion.div>
+
+              {/* Trust signals — concise, no fabricated stats */}
+              <motion.div
+                variants={fadeInUp}
+                className="flex flex-wrap items-center gap-x-5 gap-y-2"
+              >
+                {[
+                  "Free to get started",
+                  "For brands & creators",
+                  "AI-assisted discovery",
+                ].map((text) => (
+                  <div key={text} className="flex items-center gap-1.5">
+                    <CheckCircle2
+                      className="w-3.5 h-3.5 flex-shrink-0 text-teal"
+                      aria-hidden="true"
+                    />
+                    <span className="text-[13px] text-muted-foreground">{text}</span>
+                  </div>
+                ))}
+              </motion.div>
+            </motion.div>
+
+            {/* ── Right column: Product Preview ─────────────────────────────── */}
+            {/* Hidden on mobile — shown from lg breakpoint */}
+            <motion.div
+              variants={staggerContainer}
+              initial="initial"
+              animate="animate"
+              className="relative hidden lg:flex flex-col gap-3"
+              aria-label="Platform preview — illustrative"
+            >
+              {/* Decorative rings: subtle, not distracting */}
+              <div
+                className="absolute -top-12 -right-12 w-80 h-80 rounded-full border pointer-events-none -z-10"
+                style={{ borderColor: "var(--teal-light)" }}
+                aria-hidden="true"
+              />
+              <div
+                className="absolute -bottom-8 -left-8 w-44 h-44 rounded-full border pointer-events-none -z-10"
+                style={{ borderColor: "oklch(0.35 0.15 260 / 0.1)" }}
+                aria-hidden="true"
+              />
+
+              {/* ── Creator Discovery Card ── */}
+              <motion.div
+                variants={scaleIn}
+                className="bg-card border border-border rounded-2xl p-5"
+                style={{ boxShadow: "0 8px 40px oklch(0 0 0 / 0.07)" }}
+              >
+                {/* Card header */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[13px] font-semibold text-foreground">
+                      Creator Discovery
+                    </span>
+                    {/* AI-assisted badge — teal accent */}
+                    <span
+                      className="px-2 py-0.5 text-[11px] font-semibold rounded-full border"
+                      style={{
+                        background: "var(--teal-light)",
+                        color: "var(--teal-muted)",
+                        borderColor: "oklch(0.78 0.08 185)",
+                      }}
+                    >
+                      AI-assisted
+                    </span>
+                  </div>
+                  <span className="text-[11px] font-medium text-muted-foreground">
+                    24 matches
+                  </span>
+                </div>
+
+                {/* Creator rows */}
+                <div className="divide-y divide-border">
+                  {heroCreators.map((creator, i) => (
+                    <div key={i} className="flex items-center gap-3 py-3">
+                      {/* Avatar with teal online indicator */}
+                      <div className="relative flex-shrink-0">
+                        <Image
+                          src={creator.photo}
+                          alt={`${creator.name}, ${creator.niche} creator`}
+                          width={40}
+                          height={40}
+                          className="rounded-full object-cover object-top w-10 h-10"
+                        />
+                        <span
+                          className="absolute -bottom-0.5 -right-0.5 w-[11px] h-[11px] rounded-full border-2 border-card"
+                          style={{ background: "var(--teal)" }}
+                          aria-hidden="true"
+                        />
+                      </div>
+
+                      {/* Creator info */}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[13px] font-semibold text-foreground truncate">
+                          {creator.name}
+                        </p>
+                        <p className="text-[11px] text-muted-foreground truncate">
+                          {creator.handle} · {creator.followers} followers
+                        </p>
+                      </div>
+
+                      {/* Niche + match label */}
+                      <div className="flex-shrink-0 text-right">
+                        <span className="text-[11px] text-muted-foreground block">
+                          {creator.niche}
+                        </span>
+                        <span
+                          className="text-[11px] font-semibold"
+                          style={{ color: "var(--teal-muted)" }}
+                        >
+                          {creator.match}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Footer action */}
+                <div className="mt-3.5 pt-0.5">
+                  <span className="flex items-center gap-1 text-[12px] font-medium text-primary">
+                    View all 24 matches
+                    <ArrowRight className="w-3 h-3" aria-hidden="true" />
+                  </span>
+                </div>
+              </motion.div>
+
+              {/* ── Brand Campaign Opportunity Card ── */}
+              <motion.div
+                variants={fadeInUp}
+                className="bg-card border border-border rounded-2xl p-4"
+                style={{ boxShadow: "0 4px 24px oklch(0 0 0 / 0.05)" }}
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex-1 min-w-0">
+                    {/* Opportunity badge — primary indigo */}
+                    <div className="mb-2">
+                      <span
+                        className="inline-block px-2 py-0.5 text-[11px] font-semibold rounded-full"
+                        style={{
+                          background: "oklch(0.35 0.15 260 / 0.09)",
+                          color: "oklch(0.35 0.15 260)",
+                        }}
+                      >
+                        New Opportunity
+                      </span>
+                    </div>
+                    <p className="text-[13px] font-semibold text-foreground mb-0.5">
+                      Sustainable Lifestyle Brand
+                    </p>
+                    <p className="text-[11px] text-muted-foreground">
+                      Lifestyle &amp; fashion · 50K+ followers · ₹30K–₹60K
+                    </p>
+                  </div>
+                  <button
+                    className="flex-shrink-0 px-3.5 py-1.5 text-[12px] font-semibold rounded-full text-primary-foreground transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    style={{ background: "oklch(0.35 0.15 260)" }}
+                    aria-label="Explore Sustainable Lifestyle Brand opportunity (illustrative)"
+                    tabIndex={-1}
+                  >
+                    Explore
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+
+          </div>
+        </div>
       </section>
 
-      {/* Features Section */}
+      {/* ── FEATURES SECTION ─────────────────────────────────────────────────── */}
       <section id="features" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <motion.div 
+        <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
           variants={staggerContainer}
           initial="initial"
@@ -198,16 +498,16 @@ export default function LandingPage() {
         </motion.div>
       </section>
 
-      {/* Feature Details Modal */}
+      {/* ── FEATURE DETAILS MODAL ────────────────────────────────────────────── */}
       {activeFeature && (
-        <motion.div 
+        <motion.div
           className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={() => setActiveFeature(null)}
         >
-          <motion.div 
+          <motion.div
             className="bg-background border border-border rounded-lg max-w-2xl w-full p-8 relative"
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -218,6 +518,7 @@ export default function LandingPage() {
             <button
               onClick={() => setActiveFeature(null)}
               className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition"
+              aria-label="Close feature details"
             >
               <X className="w-6 h-6" />
             </button>
@@ -234,14 +535,16 @@ export default function LandingPage() {
                 <div className="mb-8">
                   <h3 className="text-lg font-semibold mb-4">Key Features:</h3>
                   <ul className="space-y-3">
-                    {featureDetails[activeFeature as keyof typeof featureDetails].features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-3">
-                        <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <div className="w-2 h-2 rounded-full bg-primary" />
-                        </div>
-                        <span className="text-foreground">{feature}</span>
-                      </li>
-                    ))}
+                    {featureDetails[activeFeature as keyof typeof featureDetails].features.map(
+                      (feature, idx) => (
+                        <li key={idx} className="flex items-start gap-3">
+                          <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <div className="w-2 h-2 rounded-full bg-primary" />
+                          </div>
+                          <span className="text-foreground">{feature}</span>
+                        </li>
+                      )
+                    )}
                   </ul>
                 </div>
 
@@ -249,7 +552,11 @@ export default function LandingPage() {
                   <Button size="lg" asChild>
                     <Link href="/signup?role=brand">Get Started</Link>
                   </Button>
-                  <Button size="lg" variant="outline" onClick={() => setActiveFeature(null)}>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    onClick={() => setActiveFeature(null)}
+                  >
                     Learn More
                   </Button>
                 </div>
@@ -259,9 +566,9 @@ export default function LandingPage() {
         </motion.div>
       )}
 
-      {/* Testimonials Section */}
+      {/* ── TESTIMONIALS SECTION ─────────────────────────────────────────────── */}
       <section id="testimonials" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <motion.h2 
+        <motion.h2
           className="text-3xl font-bold text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -270,7 +577,7 @@ export default function LandingPage() {
         >
           Trusted by brands and creators
         </motion.h2>
-        <motion.div 
+        <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-6"
           variants={staggerContainer}
           initial="initial"
@@ -281,24 +588,27 @@ export default function LandingPage() {
             {
               name: "Sarah Chen",
               role: "Brand Manager",
-              quote: "Collab AI has reduced our campaign setup time by 70%. Highly recommend!",
+              quote:
+                "Collab AI has reduced our campaign setup time by 70%. Highly recommend!",
               company: "TechBrand Inc",
             },
             {
               name: "Alex Martinez",
               role: "Creator",
-              quote: "Easy payments, clear analytics, and simple to use. Best platform out there.",
+              quote:
+                "Easy payments, clear analytics, and simple to use. Best platform out there.",
               company: "Creative Content",
             },
             {
               name: "Jordan Lee",
               role: "Marketing Director",
-              quote: "The transparency and ROI tracking have transformed how we measure success.",
+              quote:
+                "The transparency and ROI tracking have transformed how we measure success.",
               company: "Global Brands Co",
             },
           ].map((testimonial, idx) => (
-            <motion.div 
-              key={idx} 
+            <motion.div
+              key={idx}
               className="p-6 bg-card border border-border rounded-lg hover:shadow-lg transition-shadow"
               variants={scaleIn}
               whileHover={{ y: -4 }}
@@ -314,7 +624,7 @@ export default function LandingPage() {
         </motion.div>
       </section>
 
-      {/* Footer */}
+      {/* ── FOOTER ───────────────────────────────────────────────────────────── */}
       <section id="contact" className="border-t border-border bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
@@ -327,7 +637,7 @@ export default function LandingPage() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:text-foreground transition">
+                  <Link href="/pricing" className="hover:text-foreground transition">
                     Pricing
                   </Link>
                 </li>
@@ -400,10 +710,13 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="border-t border-border pt-8">
-            <p className="text-sm text-muted-foreground text-center">© 2025 Collab AI. All rights reserved.</p>
+            <p className="text-sm text-muted-foreground text-center">
+              © 2025 Collab AI. All rights reserved.
+            </p>
           </div>
         </div>
       </section>
+
     </div>
   )
 }
