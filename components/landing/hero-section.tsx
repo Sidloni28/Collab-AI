@@ -52,14 +52,14 @@ export function HeroSection({ onScrollToHowItWorks }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden" aria-label="Hero">
-      {/* Background: dual-tone soft radial gradients */}
+      {/* Background ambient lighting */}
       <div
         className="absolute inset-0 -z-10 pointer-events-none"
         aria-hidden="true"
         style={{
           background:
-            "radial-gradient(ellipse 72% 55% at 72% 42%, var(--teal-light), transparent 70%), " +
-            "radial-gradient(ellipse 50% 40% at 22% 70%, oklch(0.65 0.15 260 / 0.06), transparent 80%)",
+            "radial-gradient(ellipse 70% 50% at 75% 35%, rgba(245, 183, 34, 0.12), transparent 70%), " +
+            "radial-gradient(ellipse 60% 45% at 20% 65%, rgba(6, 26, 107, 0.08), transparent 80%)",
         }}
       />
 
@@ -75,34 +75,34 @@ export function HeroSection({ onScrollToHowItWorks }: HeroSectionProps) {
             {/* Eyebrow */}
             <motion.div variants={fadeInUp} className="mb-6">
               <span
-                className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border text-xs font-semibold tracking-wide uppercase"
+                className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border text-xs font-semibold tracking-wide uppercase shadow-2xs"
                 style={{
-                  background: "oklch(0.96 0.015 260 / 0.6)",
-                  borderColor: "oklch(0.35 0.15 260 / 0.18)",
-                  color: "oklch(0.35 0.15 260)",
+                  background: "rgba(5, 22, 89, 0.06)",
+                  borderColor: "rgba(5, 22, 89, 0.18)",
+                  color: "#051659",
                 }}
               >
                 <span
-                  className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                  style={{ background: "oklch(0.35 0.15 260)" }}
+                  className="w-2 h-2 rounded-full flex-shrink-0"
+                  style={{ background: "#f5b722" }}
                   aria-hidden="true"
                 />
                 Creator × Brand Collaboration
               </span>
             </motion.div>
 
-            {/* Headline */}
+            {/* Headline with Yellow Accent Font */}
             <motion.h1
               variants={fadeInUp}
-              className="font-extrabold leading-[1.08] tracking-tight text-foreground mb-6"
+              className="font-extrabold leading-[1.08] tracking-tight text-[#051659] mb-6"
               style={{ fontSize: "clamp(38px, 4.8vw, 62px)" }}
             >
               <span className="block">Discover Creators.</span>
               <span className="block">Find Brands.</span>
               <span
-                className="block italic"
+                className="block italic font-serif font-normal"
                 style={{
-                  color: "oklch(0.35 0.15 260)",
+                  color: "#d99706",
                   fontSize: "clamp(42px, 5.5vw, 68px)",
                 }}
               >
@@ -113,7 +113,7 @@ export function HeroSection({ onScrollToHowItWorks }: HeroSectionProps) {
             {/* Supporting text */}
             <motion.p
               variants={fadeInUp}
-              className="text-[17px] leading-[1.7] text-muted-foreground mb-8 max-w-[480px]"
+              className="text-[17px] leading-[1.7] text-slate-700 mb-8 max-w-[480px]"
             >
               Collab AI brings brands and creators together in one organized space.
               Brands discover relevant creators. Creators find meaningful partnership
@@ -129,25 +129,26 @@ export function HeroSection({ onScrollToHowItWorks }: HeroSectionProps) {
                 id="hero-get-started"
                 size="lg"
                 asChild
-                className="rounded-full px-7 h-12 text-[15px] font-semibold shadow-md"
+                className="rounded-full px-7 h-12 text-[15px] font-bold shadow-md transition-all border border-[#f5b722]/30 hover:opacity-95"
                 style={{
-                  background: "oklch(0.35 0.15 260)",
-                  boxShadow: "0 4px 20px oklch(0.35 0.15 260 / 0.25)",
+                  background: "#051659",
+                  color: "#ffffff",
+                  boxShadow: "0 4px 20px rgba(5, 22, 89, 0.25)",
                 }}
               >
                 <Link href="/signup" className="gap-2">
-                  Get Started <ArrowRight className="w-4 h-4" />
+                  Get Started <ArrowRight className="w-4 h-4 text-[#f5b722]" />
                 </Link>
               </Button>
               <Button
                 id="hero-see-how"
                 size="lg"
                 variant="outline"
-                className="rounded-full px-7 h-12 text-[15px] font-medium gap-2 border-border/80 hover:bg-muted/60"
+                className="rounded-full px-7 h-12 text-[15px] font-medium gap-2 border-slate-300 hover:bg-slate-100 text-[#051659]"
                 onClick={handleScroll}
               >
                 See How It Works
-                <ArrowDown className="w-4 h-4" />
+                <ArrowDown className="w-4 h-4 text-[#d99706]" />
               </Button>
             </motion.div>
 
@@ -163,11 +164,10 @@ export function HeroSection({ onScrollToHowItWorks }: HeroSectionProps) {
               ].map((text) => (
                 <div key={text} className="flex items-center gap-1.5">
                   <CheckCircle2
-                    className="w-4 h-4 flex-shrink-0"
-                    style={{ color: "var(--teal)" }}
+                    className="w-4 h-4 flex-shrink-0 text-[#d99706]"
                     aria-hidden="true"
                   />
-                  <span className="text-[13px] font-medium text-muted-foreground">{text}</span>
+                  <span className="text-[13px] font-medium text-slate-700">{text}</span>
                 </div>
               ))}
             </motion.div>
@@ -184,45 +184,44 @@ export function HeroSection({ onScrollToHowItWorks }: HeroSectionProps) {
             {/* Subtle background decoration */}
             <div
               className="absolute -top-10 -right-10 w-72 h-72 rounded-full border pointer-events-none -z-10"
-              style={{ borderColor: "var(--teal-light)" }}
+              style={{ borderColor: "rgba(245, 183, 34, 0.25)" }}
               aria-hidden="true"
             />
             <div
               className="absolute -bottom-8 -left-8 w-44 h-44 rounded-full border pointer-events-none -z-10"
-              style={{ borderColor: "oklch(0.35 0.15 260 / 0.1)" }}
+              style={{ borderColor: "rgba(5, 22, 89, 0.15)" }}
               aria-hidden="true"
             />
 
             {/* Creator Discovery Card */}
             <motion.div
               variants={scaleIn}
-              className="bg-card border border-border/80 rounded-2xl p-5"
-              style={{ boxShadow: "0 10px 40px -10px oklch(0 0 0 / 0.08)" }}
+              className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-xl shadow-blue-950/5"
             >
               {/* Card header */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-[13px] font-semibold text-foreground">
+                  <span className="text-[13px] font-bold text-[#051659]">
                     Creator Discovery
                   </span>
                   <span
-                    className="px-2 py-0.5 text-[11px] font-semibold rounded-full border"
+                    className="px-2 py-0.5 text-[11px] font-bold rounded-full border"
                     style={{
-                      background: "var(--teal-light)",
-                      color: "var(--teal-muted)",
-                      borderColor: "oklch(0.78 0.08 185)",
+                      background: "rgba(245, 183, 34, 0.15)",
+                      color: "#92400e",
+                      borderColor: "rgba(245, 183, 34, 0.4)",
                     }}
                   >
                     AI-assisted
                   </span>
                 </div>
-                <span className="text-[11px] font-medium text-muted-foreground">
+                <span className="text-[11px] font-medium text-slate-500">
                   24 matches
                 </span>
               </div>
 
               {/* Creator rows */}
-              <div className="divide-y divide-border">
+              <div className="divide-y divide-slate-100">
                 {heroCreators.map((creator, i) => (
                   <div key={i} className="flex items-center gap-3 py-3">
                     <div className="relative flex-shrink-0">
@@ -231,31 +230,30 @@ export function HeroSection({ onScrollToHowItWorks }: HeroSectionProps) {
                         alt={`${creator.name}, ${creator.niche} creator`}
                         width={40}
                         height={40}
-                        className="rounded-full object-cover object-top w-10 h-10 border border-border/60"
+                        className="rounded-full object-cover object-top w-10 h-10 border border-slate-200"
                       />
                       <span
-                        className="absolute -bottom-0.5 -right-0.5 w-[11px] h-[11px] rounded-full border-2 border-card"
-                        style={{ background: "var(--teal)" }}
+                        className="absolute -bottom-0.5 -right-0.5 w-[11px] h-[11px] rounded-full border-2 border-white"
+                        style={{ background: "#f5b722" }}
                         aria-hidden="true"
                       />
                     </div>
 
                     <div className="flex-1 min-w-0">
-                      <p className="text-[13px] font-semibold text-foreground truncate">
+                      <p className="text-[13px] font-bold text-[#051659] truncate">
                         {creator.name}
                       </p>
-                      <p className="text-[11px] text-muted-foreground truncate">
+                      <p className="text-[11px] text-slate-500 truncate">
                         {creator.handle} · {creator.followers} followers
                       </p>
                     </div>
 
                     <div className="flex-shrink-0 text-right">
-                      <span className="text-[11px] text-muted-foreground block">
+                      <span className="text-[11px] text-slate-500 block">
                         {creator.niche}
                       </span>
                       <span
-                        className="text-[11px] font-semibold"
-                        style={{ color: "var(--teal-muted)" }}
+                        className="text-[11px] font-bold text-[#b45309]"
                       >
                         {creator.match}
                       </span>
@@ -267,11 +265,10 @@ export function HeroSection({ onScrollToHowItWorks }: HeroSectionProps) {
               {/* Footer action */}
               <div className="mt-3 pt-1">
                 <span
-                  className="flex items-center gap-1 text-[12px] font-semibold"
-                  style={{ color: "oklch(0.35 0.15 260)" }}
+                  className="flex items-center gap-1 text-[12px] font-bold text-[#051659] hover:underline cursor-pointer"
                 >
                   View all 24 matches
-                  <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#d99706]" aria-hidden="true" />
                 </span>
               </div>
             </motion.div>
@@ -279,32 +276,31 @@ export function HeroSection({ onScrollToHowItWorks }: HeroSectionProps) {
             {/* Brand Campaign Opportunity Card */}
             <motion.div
               variants={fadeInUp}
-              className="bg-card border border-border/80 rounded-2xl p-4"
-              style={{ boxShadow: "0 6px 28px -6px oklch(0 0 0 / 0.06)" }}
+              className="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-lg shadow-blue-950/5"
             >
               <div className="flex items-center justify-between gap-3">
                 <div className="flex-1 min-w-0">
                   <div className="mb-1.5">
                     <span
-                      className="inline-block px-2 py-0.5 text-[11px] font-semibold rounded-full"
+                      className="inline-block px-2 py-0.5 text-[11px] font-bold rounded-full"
                       style={{
-                        background: "oklch(0.35 0.15 260 / 0.08)",
-                        color: "oklch(0.35 0.15 260)",
+                        background: "rgba(5, 22, 89, 0.08)",
+                        color: "#051659",
                       }}
                     >
                       New Opportunity
                     </span>
                   </div>
-                  <p className="text-[13px] font-semibold text-foreground mb-0.5">
+                  <p className="text-[13px] font-bold text-[#051659] mb-0.5">
                     Sustainable Lifestyle Brand
                   </p>
-                  <p className="text-[11px] text-muted-foreground">
-                    Lifestyle &amp; fashion · 50K+ followers · ₹30K–₹60K
+                  <p className="text-[11px] text-slate-500">
+                    Lifestyle &amp; fashion · 50K+ followers · <span className="font-semibold text-emerald-700">₹30K–₹60K</span>
                   </p>
                 </div>
                 <div
-                  className="flex-shrink-0 px-3.5 py-1.5 text-[12px] font-semibold rounded-full text-white cursor-pointer hover:opacity-90 transition-opacity"
-                  style={{ background: "oklch(0.35 0.15 260)" }}
+                  className="flex-shrink-0 px-3.5 py-1.5 text-[12px] font-bold rounded-full text-[#051659] cursor-pointer hover:opacity-90 transition-opacity shadow-xs"
+                  style={{ background: "#f5b722" }}
                 >
                   Explore
                 </div>
@@ -316,4 +312,3 @@ export function HeroSection({ onScrollToHowItWorks }: HeroSectionProps) {
     </section>
   )
 }
-
