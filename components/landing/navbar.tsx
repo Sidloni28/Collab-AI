@@ -74,12 +74,12 @@ export function Navbar({ onNavigate }: NavbarProps) {
             >
               For Brands
             </button>
-            <button
+            {/* <button
               onClick={() => handleScroll("for-creators")}
               className="px-3.5 py-1.5 text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-full transition-all cursor-pointer"
             >
               For Creators
-            </button>
+            </button> */}
             <button
               onClick={() => handleScroll("how-it-works")}
               className="px-3.5 py-1.5 text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-full transition-all cursor-pointer"
