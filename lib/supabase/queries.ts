@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/client"
 
 // ============================================
-// Types
+// Types - (For Database Tables)
 // ============================================
 export interface CampaignRow {
   id: string
