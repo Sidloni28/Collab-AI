@@ -14,7 +14,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { SidebarTrigger } from "@/components/ui/sidebar"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Bell, MoreHorizontal, Upload, Star, Download, MessageSquare, Search, Link as LinkIcon, CheckCircle, AlertCircle, DollarSign, Settings, Clock } from 'lucide-react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
@@ -315,14 +315,29 @@ export function CreatorDashboardContent({ activeTab, userId }: CreatorDashboardC
   }
 
   return (
-    <div className="flex-1">
+    <div
+      className="flex-1 min-h-screen"
+      style={{
+        background: "linear-gradient(180deg, #f4f7fc 0%, #edf2f9 50%, #eef3fb 100%)",
+      }}
+    >
       {/* Top Bar */}
-      <div className="border-b border-border bg-card p-4 flex items-center justify-between">
-        <div className="flex items-center gap-4 flex-1">
-          <h2 className="text-2xl font-bold">Creator Dashboard</h2>
+      <div className="border-b border-[#051659]/10 bg-white/90 backdrop-blur-md px-6 py-3.5 flex items-center justify-between sticky top-0 z-20">
+        <div className="flex items-center gap-3 flex-1">
+          <SidebarTrigger className="text-[#051659] hover:bg-[#051659]/5" />
+          <div>
+            <h2 className="text-xl font-bold text-[#051659] tracking-tight">
+              Hello, {creatorName}
+            </h2>
+            {socialMedia && (
+              <p className="text-xs text-slate-500">
+                Connected: <span className="font-semibold text-[#051659]">{socialMedia}</span>
+              </p>
+            )}
+          </div>
         </div>
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon">
+        <div className="flex items-center gap-3">
+          <Button variant="ghost" size="icon" className="text-[#051659] hover:bg-[#051659]/5 rounded-full">
             <Bell className="w-4 h-4" />
           </Button>
         </div>
@@ -333,39 +348,33 @@ export function CreatorDashboardContent({ activeTab, userId }: CreatorDashboardC
         {/* Dashboard Tab */}
         {activeTab === "dashboard" && (
           <div className="space-y-6">
-            <div className="mb-6">
-              <h2 className="text-3xl font-bold mb-2">Hello {creatorName}! 👋</h2>
-              <p className="text-muted-foreground">Welcome to Collab AI. Here&apos;s your dashboard overview.</p>
-              {socialMedia && <p className="text-sm text-muted-foreground mt-2">Connected Platform: <span className="font-semibold">{socialMedia}</span></p>}
-            </div>
-
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card className="p-4 bg-gradient-to-br from-green-50 to-green-100 border-green-200">
-                <p className="text-sm text-green-600 font-medium mb-1">Total Earnings</p>
-                <p className="text-3xl font-bold text-green-900">₹{myEarnings.filter(e => e.status === "Completed").reduce((sum, e) => sum + e.amount, 0).toLocaleString()}</p>
+              <Card className="p-5 bg-[#051659] text-white border-[#051659] rounded-2xl shadow-md">
+                <p className="text-xs text-white/75 font-semibold uppercase tracking-wider mb-1">Total Earnings</p>
+                <p className="text-3xl font-bold text-[#f5b722]">₹{myEarnings.filter(e => e.status === "Completed").reduce((sum, e) => sum + e.amount, 0).toLocaleString()}</p>
               </Card>
-              <Card className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
-                <p className="text-sm text-blue-600 font-medium mb-1">Active Collabs</p>
-                <p className="text-3xl font-bold text-blue-900">{myCollaborations.filter(c => c.status === "Active").length}</p>
+              <Card className="p-5 bg-white border-slate-200/90 rounded-2xl shadow-sm hover:border-[#f5b722]/60 transition-colors">
+                <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Active Collabs</p>
+                <p className="text-3xl font-bold text-[#051659]">{myCollaborations.filter(c => c.status === "Active").length}</p>
               </Card>
-              <Card className="p-4 bg-gradient-to-br from-amber-50 to-amber-100 border-amber-200">
-                <p className="text-sm text-amber-600 font-medium mb-1">Pending Clearance</p>
-                <p className="text-3xl font-bold text-amber-900">₹{myEarnings.filter(e => e.status === "Pending").reduce((sum, e) => sum + e.amount, 0).toLocaleString()}</p>
+              <Card className="p-5 bg-white border-slate-200/90 rounded-2xl shadow-sm hover:border-[#f5b722]/60 transition-colors">
+                <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Pending Clearance</p>
+                <p className="text-3xl font-bold text-[#d99706]">₹{myEarnings.filter(e => e.status === "Pending").reduce((sum, e) => sum + e.amount, 0).toLocaleString()}</p>
               </Card>
-              <Card className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
-                <p className="text-sm text-purple-600 font-medium mb-1">Feedback Rating</p>
-                <p className="text-3xl font-bold text-purple-900">{myFeedback.length > 0 ? (myFeedback.reduce((sum, f) => sum + f.rating, 0) / myFeedback.length).toFixed(1) : "5.0"}/5</p>
+              <Card className="p-5 bg-white border-slate-200/90 rounded-2xl shadow-sm hover:border-[#f5b722]/60 transition-colors">
+                <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Feedback Rating</p>
+                <p className="text-3xl font-bold text-[#051659]">{myFeedback.length > 0 ? (myFeedback.reduce((sum, f) => sum + f.rating, 0) / myFeedback.length).toFixed(1) : "5.0"}/5</p>
               </Card>
             </div>
 
-            <Card className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Earnings Overview</h3>
+            <Card className="p-6 bg-white border-slate-200/90 rounded-2xl shadow-sm">
+              <h3 className="text-lg font-bold text-[#051659] mb-4">Earnings Overview</h3>
               <div className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={myEarningsData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="month" />
-                    <YAxis />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                    <XAxis dataKey="month" stroke="#64748b" fontSize={12} />
+                    <YAxis stroke="#64748b" fontSize={12} />
                     <Tooltip formatter={(value) => `₹${value}`} />
                     <Legend />
                     <Line type="monotone" dataKey="earnings" stroke="#3b82f6" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />

@@ -34,7 +34,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent } from "@/components/ui/tabs"
+import { SidebarTrigger } from "@/components/ui/sidebar"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Bell, MoreHorizontal, Plus, Search, Download, TrendingUp, DollarSign, CheckCircle, Clock, Link as LinkIcon, Trash2 } from 'lucide-react'
 import { motion } from "framer-motion"
@@ -61,7 +62,7 @@ import {
 
 // Static data removed and replaced with dynamic fetching below
 
-const COLORS = ["#3b82f6", "#60a5fa", "#93c5fd", "#dbeafe"]
+const COLORS = ["#051659", "#f5b722", "#1e40af", "#fbbf24"]
 
 export function BrandDashboardContent({ activeTab, onTabChange, userId }: { activeTab: string; onTabChange: (tab: string) => void; userId: string }) {
   const { setTheme } = useTheme()
@@ -380,91 +381,97 @@ export function BrandDashboardContent({ activeTab, onTabChange, userId }: { acti
   }
 
   return (
-    <div className="flex-1">
+    <div
+      className="flex-1 min-h-screen"
+      style={{
+        background: "linear-gradient(180deg, #f4f7fc 0%, #edf2f9 50%, #eef3fb 100%)",
+      }}
+    >
       {/* Top Bar */}
-      <div className="border-b border-border bg-card p-4 flex items-center justify-between">
-        <div className="flex items-center gap-4 flex-1">
-          <h2 className="text-2xl font-bold">{brandName ? `Hello ${brandName} 👋` : "Brand Dashboard"}</h2>
+      <div className="border-b border-[#051659]/10 bg-white/90 backdrop-blur-md px-6 py-3.5 flex items-center justify-between sticky top-0 z-20">
+        <div className="flex items-center gap-3 flex-1">
+          <SidebarTrigger className="text-[#051659] hover:bg-[#051659]/5" />
+          <h2 className="text-xl font-bold text-[#051659] tracking-tight">
+            {brandName ? `Hello, ${brandName}` : "Welcome back"}
+          </h2>
         </div>
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon">
+        <div className="flex items-center gap-3">
+          <Button variant="ghost" size="icon" className="text-[#051659] hover:bg-[#051659]/5 rounded-full">
             <Bell className="w-4 h-4" />
           </Button>
         </div>
       </div>
 
       {/* Main Content */}
-      <Tabs value={activeTab} onValueChange={onTabChange} className="flex flex-col h-full">
-        <TabsList className="border-b border-border bg-background px-4 w-full justify-start rounded-none">
-          <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-          <TabsTrigger value="find-connect">Find and Connect</TabsTrigger>
-          <TabsTrigger value="collaborations">Manage Collaborations</TabsTrigger>
-          <TabsTrigger value="campaigns">Campaigns</TabsTrigger>
-          <TabsTrigger value="payments">Payments</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
-          <TabsTrigger value="settings">Settings</TabsTrigger>
-        </TabsList>
-
+      <Tabs value={activeTab} onValueChange={onTabChange} className="flex flex-col">
         {/* Dashboard Tab */}
-        <TabsContent value="dashboard" className="flex-1 p-6 overflow-auto space-y-6">
+        <TabsContent value="dashboard" className="flex-1 p-6 overflow-auto space-y-6 mt-0">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Card className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+            <Card className="p-5 bg-[#051659] text-white border-[#051659] rounded-2xl shadow-md">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <p className="text-sm text-blue-600 font-medium mb-1">Active Campaigns</p>
-                  <p className="text-3xl font-bold text-blue-900">{activeCampaigns}</p>
+                  <p className="text-xs text-white/75 font-semibold uppercase tracking-wider mb-1">Active Campaigns</p>
+                  <p className="text-3xl font-bold text-[#f5b722]">{activeCampaigns}</p>
                 </div>
-                <TrendingUp className="w-5 h-5 text-blue-600" />
+                <div className="p-2 rounded-xl bg-white/10">
+                  <TrendingUp className="w-5 h-5 text-[#f5b722]" />
+                </div>
               </div>
-              <p className="text-xs text-blue-600">Out of {totalCampaigns} campaigns</p>
+              <p className="text-xs text-white/70">Out of {totalCampaigns} campaigns</p>
             </Card>
             
-            <Card className="p-4 bg-gradient-to-br from-green-50 to-green-100 border-green-200">
+            <Card className="p-5 bg-white border-slate-200/90 rounded-2xl shadow-sm hover:border-[#f5b722]/60 transition-colors">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <p className="text-sm text-green-600 font-medium mb-1">Total Spend</p>
-                  <p className="text-3xl font-bold text-green-900">₹{(totalSpend / 100000).toFixed(1)}L</p>
+                  <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Total Spend</p>
+                  <p className="text-3xl font-bold text-[#051659]">₹{(totalSpend / 100000).toFixed(1)}L</p>
                 </div>
-                <DollarSign className="w-5 h-5 text-green-600" />
+                <div className="p-2 rounded-xl bg-[#f5b722]/15">
+                  <DollarSign className="w-5 h-5 text-[#d99706]" />
+                </div>
               </div>
-              <p className="text-xs text-green-600">Of ₹{(totalBudget / 100000).toFixed(1)}L budget</p>
+              <p className="text-xs text-slate-500">Of ₹{(totalBudget / 100000).toFixed(1)}L budget</p>
             </Card>
             
-            <Card className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
+            <Card className="p-5 bg-white border-slate-200/90 rounded-2xl shadow-sm hover:border-[#f5b722]/60 transition-colors">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <p className="text-sm text-purple-600 font-medium mb-1">Total Campaigns</p>
-                  <p className="text-3xl font-bold text-purple-900">{totalCampaigns}</p>
+                  <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Total Campaigns</p>
+                  <p className="text-3xl font-bold text-[#051659]">{totalCampaigns}</p>
                 </div>
-                <CheckCircle className="w-5 h-5 text-purple-600" />
+                <div className="p-2 rounded-xl bg-[#051659]/5">
+                  <CheckCircle className="w-5 h-5 text-[#051659]" />
+                </div>
               </div>
-              <p className="text-xs text-purple-600">{activeCampaigns} currently active</p>
+              <p className="text-xs text-slate-500">{activeCampaigns} currently active</p>
             </Card>
             
-            <Card className="p-4 bg-gradient-to-br from-orange-50 to-orange-100 border-orange-200">
+            <Card className="p-5 bg-white border-slate-200/90 rounded-2xl shadow-sm hover:border-[#f5b722]/60 transition-colors">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <p className="text-sm text-orange-600 font-medium mb-1">Avg ROI</p>
-                  <p className="text-3xl font-bold text-orange-900">{avgROI}x</p>
+                  <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Avg ROI</p>
+                  <p className="text-3xl font-bold text-[#051659]">{avgROI}x</p>
                 </div>
-                <TrendingUp className="w-5 h-5 text-orange-600" />
+                <div className="p-2 rounded-xl bg-[#f5b722]/15">
+                  <TrendingUp className="w-5 h-5 text-[#d99706]" />
+                </div>
               </div>
-              <p className="text-xs text-orange-600">Based on campaign data</p>
+              <p className="text-xs text-slate-500">Based on campaign data</p>
             </Card>
           </div>
 
-          <Card className="p-6">
-            <h3 className="text-lg font-semibold mb-4">Campaign Summary</h3>
+          <Card className="p-6 bg-white border-slate-200/90 rounded-2xl shadow-sm">
+            <h3 className="text-lg font-bold text-[#051659] mb-4">Campaign Summary</h3>
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={reachData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="date" />
-                  <YAxis />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <XAxis dataKey="date" stroke="#64748b" fontSize={12} />
+                  <YAxis stroke="#64748b" fontSize={12} />
                   <Tooltip />
                   <Legend />
-                  <Line type="monotone" dataKey="reach" stroke="#3b82f6" />
-                  <Line type="monotone" dataKey="engagement" stroke="#60a5fa" />
+                  <Line type="monotone" dataKey="reach" stroke="#051659" strokeWidth={2.5} />
+                  <Line type="monotone" dataKey="engagement" stroke="#f5b722" strokeWidth={2.5} />
                 </LineChart>
               </ResponsiveContainer>
             </div>

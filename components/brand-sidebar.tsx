@@ -13,7 +13,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { BarChart3, Users, Calendar, CreditCard, Settings, LogOut } from 'lucide-react'
+import { BarChart3, Users, Calendar, CreditCard, Settings, LogOut, Briefcase, LineChart } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { clearAuth, getUser } from "@/lib/auth"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -31,9 +31,11 @@ export function BrandSidebar({ activeTab, onTabChange }: { activeTab: string; on
 
   const menuItems = [
     { id: "dashboard", label: "Dashboard", icon: BarChart3 },
+    { id: "find-connect", label: "Find & Connect", icon: Users },
+    { id: "collaborations", label: "Collaborations", icon: Briefcase },
     { id: "campaigns", label: "Campaigns", icon: Calendar },
-    { id: "find-connect", label: "Find and Connect", icon: Users },
     { id: "payments", label: "Payments", icon: CreditCard },
+    { id: "analytics", label: "Analytics", icon: LineChart },
   ]
 
   const handleLogout = () => {
@@ -42,63 +44,86 @@ export function BrandSidebar({ activeTab, onTabChange }: { activeTab: string; on
   }
 
   return (
-    <>
-      <Sidebar>
-        <SidebarHeader className="flex flex-row items-center justify-between p-4">
-          <div>
-            <h1 className="text-lg font-bold text-primary leading-tight">Collab AI</h1>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">{brandName}</p>
-          </div>
-          <ThemeToggle />
-        </SidebarHeader>
+    <Sidebar className="border-r border-[#051659]/10 bg-white">
+      <SidebarHeader className="flex flex-row items-center justify-between p-4 border-b border-[#051659]/10 bg-[#051659] text-white">
+        <div>
+          <h1 className="text-lg font-bold tracking-tight leading-tight">
+            Collab <span className="text-[#f5b722]">AI</span>
+          </h1>
+          <p className="text-[10px] text-white/75 uppercase tracking-wider font-semibold truncate max-w-[140px]">
+            {brandName}
+          </p>
+        </div>
+        <ThemeToggle />
+      </SidebarHeader>
 
-        <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>Menu</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {menuItems.map((item) => (
+      <SidebarContent className="bg-[#f8faff] px-2 py-3">
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-[11px] font-bold uppercase tracking-wider text-[#051659]/60 px-2">
+            Workspace
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
+              {menuItems.map((item) => {
+                const isActive = activeTab === item.id
+                return (
                   <SidebarMenuItem key={item.id}>
                     <SidebarMenuButton
                       tooltip={item.label}
-                      isActive={activeTab === item.id}
+                      isActive={isActive}
                       onClick={() => onTabChange(item.id)}
+                      className={`rounded-xl px-3 py-2.5 text-sm font-medium transition-all ${
+                        isActive
+                          ? "bg-[#051659] text-white shadow-sm hover:bg-[#051659] hover:text-white"
+                          : "text-slate-700 hover:bg-[#051659]/5 hover:text-[#051659]"
+                      }`}
                     >
-                      <item.icon className="w-4 h-4" />
+                      <item.icon className={`w-4 h-4 ${isActive ? "text-[#f5b722]" : "text-slate-500"}`} />
                       <span>{item.label}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+                )
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
 
-          <SidebarGroup>
-            <SidebarGroupLabel>Other</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton 
-                    tooltip="Settings"
-                    isActive={activeTab === "settings"}
-                    onClick={() => onTabChange("settings")}
-                  >
-                    <Settings className="w-4 h-4" />
-                    <span>Settings</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        </SidebarContent>
+        <SidebarGroup className="mt-2">
+          <SidebarGroupLabel className="text-[11px] font-bold uppercase tracking-wider text-[#051659]/60 px-2">
+            Account
+          </SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton 
+                  tooltip="Settings"
+                  isActive={activeTab === "settings"}
+                  onClick={() => onTabChange("settings")}
+                  className={`rounded-xl px-3 py-2.5 text-sm font-medium transition-all ${
+                    activeTab === "settings"
+                      ? "bg-[#051659] text-white shadow-sm hover:bg-[#051659] hover:text-white"
+                      : "text-slate-700 hover:bg-[#051659]/5 hover:text-[#051659]"
+                  }`}
+                >
+                  <Settings className={`w-4 h-4 ${activeTab === "settings" ? "text-[#f5b722]" : "text-slate-500"}`} />
+                  <span>Settings</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
 
-        <SidebarFooter>
-          <Button variant="ghost" className="w-full justify-start gap-2 text-destructive hover:text-destructive" onClick={handleLogout}>
-            <LogOut className="w-4 h-4" />
-            Logout
-          </Button>
-        </SidebarFooter>
-      </Sidebar>
-    </>
+      <SidebarFooter className="border-t border-[#051659]/10 bg-[#f8faff] p-3">
+        <Button
+          variant="ghost"
+          className="w-full justify-start gap-2 text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-xl font-medium"
+          onClick={handleLogout}
+        >
+          <LogOut className="w-4 h-4" />
+          Logout
+        </Button>
+      </SidebarFooter>
+    </Sidebar>
   )
 }
