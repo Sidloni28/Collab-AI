@@ -133,3 +133,25 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Subtle, eye-friendly Ultramarine & Honey Gold theme for Brand & Creator Dashboards */
+.dashboard-subtle-theme {
+  color-scheme: light;
+  --background: #f5f8fd;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #1e3a8a;
+  --primary-foreground: #ffffff;
+  --secondary: #eef3fb;
+  --secondary-foreground: #1e3a8a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #fef3c7;
+  --accent-foreground: #92400e;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #1e3a8a;
+}

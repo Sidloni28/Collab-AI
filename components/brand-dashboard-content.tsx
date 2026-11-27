@@ -407,17 +407,17 @@ export function BrandDashboardContent({ activeTab, onTabChange, userId }: { acti
         {/* Dashboard Tab */}
         <TabsContent value="dashboard" className="flex-1 p-6 overflow-auto space-y-6 mt-0">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Card className="p-5 bg-[#051659] text-white border-[#051659] rounded-2xl shadow-md">
+            <Card className="p-5 bg-gradient-to-br from-[#eef3fb] via-white to-[#fef9e7] border-[#1e3a8a]/20 rounded-2xl shadow-sm">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <p className="text-xs text-white/75 font-semibold uppercase tracking-wider mb-1">Active Campaigns</p>
-                  <p className="text-3xl font-bold text-[#f5b722]">{activeCampaigns}</p>
+                  <p className="text-xs text-[#1e3a8a]/70 font-semibold uppercase tracking-wider mb-1">Active Campaigns</p>
+                  <p className="text-3xl font-bold text-[#1e3a8a]">{activeCampaigns}</p>
                 </div>
-                <div className="p-2 rounded-xl bg-white/10">
-                  <TrendingUp className="w-5 h-5 text-[#f5b722]" />
+                <div className="p-2 rounded-xl bg-[#f5b722]/20">
+                  <TrendingUp className="w-5 h-5 text-[#d99706]" />
                 </div>
               </div>
-              <p className="text-xs text-white/70">Out of {totalCampaigns} campaigns</p>
+              <p className="text-xs text-slate-600">Out of {totalCampaigns} campaigns</p>
             </Card>
             
             <Card className="p-5 bg-white border-slate-200/90 rounded-2xl shadow-sm hover:border-[#f5b722]/60 transition-colors">

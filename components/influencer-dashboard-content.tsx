@@ -349,9 +349,9 @@ export function CreatorDashboardContent({ activeTab, userId }: CreatorDashboardC
         {activeTab === "dashboard" && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <Card className="p-5 bg-[#051659] text-white border-[#051659] rounded-2xl shadow-md">
-                <p className="text-xs text-white/75 font-semibold uppercase tracking-wider mb-1">Total Earnings</p>
-                <p className="text-3xl font-bold text-[#f5b722]">₹{myEarnings.filter(e => e.status === "Completed").reduce((sum, e) => sum + e.amount, 0).toLocaleString()}</p>
+              <Card className="p-5 bg-gradient-to-br from-[#eef3fb] via-white to-[#fef9e7] border-[#1e3a8a]/20 rounded-2xl shadow-sm">
+                <p className="text-xs text-[#1e3a8a]/70 font-semibold uppercase tracking-wider mb-1">Total Earnings</p>
+                <p className="text-3xl font-bold text-[#1e3a8a]">₹{myEarnings.filter(e => e.status === "Completed").reduce((sum, e) => sum + e.amount, 0).toLocaleString()}</p>
               </Card>
               <Card className="p-5 bg-white border-slate-200/90 rounded-2xl shadow-sm hover:border-[#f5b722]/60 transition-colors">
                 <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-1">Active Collabs</p>

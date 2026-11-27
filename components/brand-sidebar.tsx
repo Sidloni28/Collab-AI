@@ -16,7 +16,6 @@ import {
 import { BarChart3, Users, Calendar, CreditCard, Settings, LogOut, Briefcase, LineChart } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { clearAuth, getUser } from "@/lib/auth"
-import { ThemeToggle } from "@/components/theme-toggle"
 
 export function BrandSidebar({ activeTab, onTabChange }: { activeTab: string; onTabChange: (tab: string) => void }) {
   const router = useRouter()
@@ -44,22 +43,22 @@ export function BrandSidebar({ activeTab, onTabChange }: { activeTab: string; on
   }
 
   return (
-    <Sidebar className="border-r border-[#051659]/10 bg-white">
-      <SidebarHeader className="flex flex-row items-center justify-between p-4 border-b border-[#051659]/10 bg-[#051659] text-white">
+    <Sidebar className="border-r border-slate-200/80 bg-white">
+      <SidebarHeader className="flex flex-row items-center justify-between px-4 py-4 border-b border-slate-200/80 bg-white">
         <div>
-          <h1 className="text-lg font-bold tracking-tight leading-tight">
-            Collab <span className="text-[#f5b722]">AI</span>
+          <h1 className="text-lg font-bold tracking-tight text-[#1e3a8a] leading-tight">
+            Collab <span className="text-[#d99706]">AI</span>
           </h1>
-          <p className="text-[10px] text-white/75 uppercase tracking-wider font-semibold truncate max-w-[140px]">
+          <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold truncate max-w-[160px]">
             {brandName}
           </p>
         </div>
-        <ThemeToggle />
+        <span className="w-2 h-2 rounded-full bg-[#f5b722]" title="Brand Workspace" />
       </SidebarHeader>
 
-      <SidebarContent className="bg-[#f8faff] px-2 py-3">
+      <SidebarContent className="bg-[#f9fbff] px-2.5 py-4">
         <SidebarGroup>
-          <SidebarGroupLabel className="text-[11px] font-bold uppercase tracking-wider text-[#051659]/60 px-2">
+          <SidebarGroupLabel className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 px-2.5 mb-1">
             Workspace
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -72,13 +71,13 @@ export function BrandSidebar({ activeTab, onTabChange }: { activeTab: string; on
                       tooltip={item.label}
                       isActive={isActive}
                       onClick={() => onTabChange(item.id)}
-                      className={`rounded-xl px-3 py-2.5 text-sm font-medium transition-all ${
+                      className={`rounded-xl px-3 py-2.5 text-sm transition-all ${
                         isActive
-                          ? "bg-[#051659] text-white shadow-sm hover:bg-[#051659] hover:text-white"
-                          : "text-slate-700 hover:bg-[#051659]/5 hover:text-[#051659]"
+                          ? "bg-[#eef3fb] text-[#1e3a8a] font-semibold border border-[#1e3a8a]/15 shadow-2xs hover:bg-[#eef3fb] hover:text-[#1e3a8a]"
+                          : "text-slate-600 font-medium hover:bg-slate-100/80 hover:text-[#1e3a8a]"
                       }`}
                     >
-                      <item.icon className={`w-4 h-4 ${isActive ? "text-[#f5b722]" : "text-slate-500"}`} />
+                      <item.icon className={`w-4 h-4 ${isActive ? "text-[#d99706]" : "text-slate-400"}`} />
                       <span>{item.label}</span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -88,8 +87,8 @@ export function BrandSidebar({ activeTab, onTabChange }: { activeTab: string; on
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarGroup className="mt-2">
-          <SidebarGroupLabel className="text-[11px] font-bold uppercase tracking-wider text-[#051659]/60 px-2">
+        <SidebarGroup className="mt-3">
+          <SidebarGroupLabel className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 px-2.5 mb-1">
             Account
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -99,13 +98,13 @@ export function BrandSidebar({ activeTab, onTabChange }: { activeTab: string; on
                   tooltip="Settings"
                   isActive={activeTab === "settings"}
                   onClick={() => onTabChange("settings")}
-                  className={`rounded-xl px-3 py-2.5 text-sm font-medium transition-all ${
+                  className={`rounded-xl px-3 py-2.5 text-sm transition-all ${
                     activeTab === "settings"
-                      ? "bg-[#051659] text-white shadow-sm hover:bg-[#051659] hover:text-white"
-                      : "text-slate-700 hover:bg-[#051659]/5 hover:text-[#051659]"
+                      ? "bg-[#eef3fb] text-[#1e3a8a] font-semibold border border-[#1e3a8a]/15 shadow-2xs hover:bg-[#eef3fb] hover:text-[#1e3a8a]"
+                      : "text-slate-600 font-medium hover:bg-slate-100/80 hover:text-[#1e3a8a]"
                   }`}
                 >
-                  <Settings className={`w-4 h-4 ${activeTab === "settings" ? "text-[#f5b722]" : "text-slate-500"}`} />
+                  <Settings className={`w-4 h-4 ${activeTab === "settings" ? "text-[#d99706]" : "text-slate-400"}`} />
                   <span>Settings</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -114,7 +113,7 @@ export function BrandSidebar({ activeTab, onTabChange }: { activeTab: string; on
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="border-t border-[#051659]/10 bg-[#f8faff] p-3">
+      <SidebarFooter className="border-t border-slate-200/80 bg-[#f9fbff] p-3">
         <Button
           variant="ghost"
           className="w-full justify-start gap-2 text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-xl font-medium"
