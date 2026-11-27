@@ -649,53 +649,91 @@ export function BrandDashboardContent({ activeTab, onTabChange, userId }: { acti
           </TabsContent>
 
         {/* Manage Collaborations Tab */}
-        <TabsContent value="collaborations" className="flex-1 p-6 overflow-auto space-y-8">
-          <div>
-            <h3 className="text-2xl font-bold mb-2">Manage Collaborations</h3>
-            <p className="text-muted-foreground mb-8">Review new applications and manage your active creator partnerships</p>
+        <TabsContent value="collaborations" className="flex-1 p-6 overflow-auto space-y-8 mt-0">
+          <div className="space-y-8">
+            {/* Header & Quick Summary */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h3 className="text-2xl font-bold text-[#1e3a8a] tracking-tight">Manage Collaborations</h3>
+                <p className="text-sm text-slate-500 mt-1">Review incoming creator applications and track active campaign partnerships</p>
+              </div>
+              {collaborationsList.length > 0 && (
+                <div className="flex items-center gap-2.5">
+                  <span className="px-3 py-1.5 rounded-full text-xs font-semibold bg-[#fef3c7] text-[#92400e] border border-[#f5b722]/30">
+                    {collaborationsList.filter(c => c.status === "Pending").length} Pending
+                  </span>
+                  <span className="px-3 py-1.5 rounded-full text-xs font-semibold bg-[#eef3fb] text-[#1e3a8a] border border-[#1e3a8a]/15">
+                    {collaborationsList.filter(c => c.status === "Active").length} Active
+                  </span>
+                </div>
+              )}
+            </div>
             
             {collaborationsList.length === 0 ? (
-              <Card className="p-12 text-center border-dashed border-2">
+              <Card className="p-12 text-center bg-white border-dashed border-2 border-slate-200 rounded-2xl shadow-xs">
                 <div className="flex flex-col items-center gap-2">
-                  <Clock className="w-12 h-12 text-muted-foreground/30 mb-2" />
-                  <p className="text-muted-foreground font-medium">No collaborations yet</p>
-                  <p className="text-sm text-muted-foreground mb-6 max-w-xs">Start a campaign to receive applications from amazing creators</p>
-                  <Button onClick={() => onTabChange("campaigns")}>View Your Campaigns</Button>
+                  <div className="w-12 h-12 rounded-2xl bg-[#eef3fb] flex items-center justify-center mb-2">
+                    <Clock className="w-6 h-6 text-[#1e3a8a]" />
+                  </div>
+                  <p className="text-[#1e3a8a] font-semibold text-base">No collaborations yet</p>
+                  <p className="text-sm text-slate-500 mb-6 max-w-xs">Start a campaign to receive applications from creators that match your niche</p>
+                  <Button
+                    onClick={() => onTabChange("campaigns")}
+                    className="bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white rounded-xl px-5"
+                  >
+                    View Your Campaigns
+                  </Button>
                 </div>
               </Card>
             ) : (
-              <div className="space-y-10">
+              <div className="space-y-8">
                 {/* NEW APPLICATIONS SECTION */}
                 {collaborationsList.some(c => c.status === "Pending") && (
                   <section className="space-y-4">
-                    <div className="flex items-center gap-2 text-blue-600 mb-2">
-                      <Bell className="w-5 h-5" />
-                      <h4 className="text-lg font-bold">New Applications ({collaborationsList.filter(c => c.status === "Pending").length})</h4>
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-7 h-7 rounded-lg bg-[#fef3c7] flex items-center justify-center">
+                        <Bell className="w-4 h-4 text-[#d99706]" />
+                      </div>
+                      <h4 className="text-base font-bold text-[#1e3a8a]">
+                        New Applications ({collaborationsList.filter(c => c.status === "Pending").length})
+                      </h4>
                     </div>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                       {collaborationsList.filter(c => c.status === "Pending").map((collab) => (
-                        <Card key={collab.id} className="p-4 border-l-4 border-l-blue-500 shadow-sm">
-                          <div className="flex justify-between items-start mb-4">
-                            <div>
-                              <p className="font-bold text-lg">{collab.creator_name}</p>
-                              <p className="text-sm text-primary font-medium">Campaign: {collab.campaign_title || "General"}</p>
-                              <p className="text-xs text-muted-foreground mt-1">Applied: {format(new Date(collab.created_at || new Date()), "MMM d, yyyy")}</p>
+                        <Card
+                          key={collab.id}
+                          className="p-5 bg-white border border-slate-200/90 rounded-2xl shadow-xs hover:shadow-md hover:border-[#f5b722]/60 transition-all"
+                        >
+                          <div className="flex justify-between items-start gap-3 mb-5">
+                            <div className="flex items-start gap-3">
+                              <div className="w-10 h-10 rounded-full bg-[#eef3fb] text-[#1e3a8a] font-bold text-sm flex items-center justify-center flex-shrink-0 border border-[#1e3a8a]/10">
+                                {(collab.creator_name || "C").charAt(0).toUpperCase()}
+                              </div>
+                              <div>
+                                <p className="font-bold text-base text-[#1e3a8a] leading-tight">{collab.creator_name}</p>
+                                <p className="text-xs font-medium text-slate-600 mt-1">
+                                  Campaign: <span className="text-[#1e3a8a] font-semibold">{collab.campaign_title || "General"}</span>
+                                </p>
+                                <p className="text-[11px] text-slate-400 mt-1">
+                                  Applied {format(new Date(collab.created_at || new Date()), "MMM d, yyyy")}
+                                </p>
+                              </div>
                             </div>
-                            <div className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                            <span className="bg-[#fef3c7] text-[#92400e] border border-[#f5b722]/30 px-2.5 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap">
                               Pending Review
-                            </div>
+                            </span>
                           </div>
-                          <div className="flex items-center gap-3">
+                          <div className="flex items-center gap-2.5 pt-3 border-t border-slate-100">
                             <Button 
                               onClick={() => handleUpdateApplicationStatus(collab.id, "Active")}
-                              className="bg-green-600 hover:bg-green-700 text-white flex-1"
+                              className="bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white flex-1 rounded-xl h-9 text-xs font-semibold shadow-2xs"
                             >
                               Accept Application
                             </Button>
                             <Button 
                               onClick={() => handleUpdateApplicationStatus(collab.id, "Declined")}
                               variant="outline" 
-                              className="text-red-600 border-red-200 hover:bg-red-50"
+                              className="text-slate-600 border-slate-200 hover:bg-rose-50 hover:text-rose-600 hover:border-rose-200 rounded-xl h-9 text-xs font-medium"
                             >
                               Decline
                             </Button>
@@ -708,60 +746,75 @@ export function BrandDashboardContent({ activeTab, onTabChange, userId }: { acti
 
                 {/* ACTIVE COLLABORATIONS SECTION */}
                 <section className="space-y-4">
-                  <div className="flex items-center gap-2 text-green-600 mb-2">
-                    <CheckCircle className="w-5 h-5" />
-                    <h4 className="text-lg font-bold">Active Partnerships</h4>
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-7 h-7 rounded-lg bg-[#eef3fb] flex items-center justify-center">
+                      <CheckCircle className="w-4 h-4 text-[#1e3a8a]" />
+                    </div>
+                    <h4 className="text-base font-bold text-[#1e3a8a]">Active Partnerships</h4>
                   </div>
                   {collaborationsList.filter(c => c.status === "Active").length === 0 ? (
-                    <div className="p-8 border border-dashed rounded-xl text-center text-muted-foreground bg-muted/20">
-                      No active partnerships yet. Review applications to get started!
-                    </div>
+                    <Card className="p-8 border border-dashed border-slate-200 rounded-2xl text-center text-sm text-slate-500 bg-white/70">
+                      No active partnerships yet. Review pending applications above to get started.
+                    </Card>
                   ) : (
-                    <div className="overflow-x-auto border rounded-xl bg-card">
-                      <Table>
-                        <TableHeader className="bg-muted/50">
-                          <TableRow>
-                            <TableHead className="font-bold">Creator</TableHead>
-                            <TableHead className="font-bold">Campaign</TableHead>
-                            <TableHead className="font-bold text-center">Posts</TableHead>
-                            <TableHead className="font-bold">Timeline</TableHead>
-                            <TableHead className="text-right font-bold">Actions</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {collaborationsList.filter(c => c.status === "Active").map((collab) => (
-                            <TableRow key={collab.id} className="hover:bg-muted/50 transition-colors">
-                              <TableCell className="font-bold">{collab.creator_name}</TableCell>
-                              <TableCell className="text-sm font-medium">{collab.campaign_title || "General"}</TableCell>
-                              <TableCell className="text-center">
-                                <span className="bg-muted px-2 py-1 rounded text-xs font-bold">{collab.posts_per_month} / mo</span>
-                              </TableCell>
-                              <TableCell className="text-xs">
-                                <div className="flex flex-col">
-                                  <span>Start: {format(new Date(collab.start_date || new Date()), "MMM d, yyyy")}</span>
-                                  {collab.end_date && <span className="text-muted-foreground">End: {format(new Date(collab.end_date), "MMM d, yyyy")}</span>}
-                                </div>
-                              </TableCell>
-                              <TableCell className="text-right">
-                                <div className="flex items-center justify-end gap-2">
-                                  <Button 
-                                    variant="outline" 
-                                    size="sm" 
-                                    className="h-8 text-xs font-bold border-primary/20 text-primary hover:bg-primary/5"
-                                    onClick={() => handleViewCollabDeliverables(collab.id)}
-                                  >
-                                    View Deliverables
-                                  </Button>
-                                  <Button variant="ghost" size="sm" className="h-8 px-2">
-                                    <MoreHorizontal className="w-4 h-4" />
-                                  </Button>
-                                </div>
-                              </TableCell>
+                    <Card className="overflow-hidden border border-slate-200/90 rounded-2xl bg-white shadow-xs">
+                      <div className="overflow-x-auto">
+                        <Table>
+                          <TableHeader className="bg-[#f8faff] border-b border-slate-200/80">
+                            <TableRow className="hover:bg-transparent">
+                              <TableHead className="font-semibold text-xs uppercase tracking-wider text-[#1e3a8a]/70 py-3.5">Creator</TableHead>
+                              <TableHead className="font-semibold text-xs uppercase tracking-wider text-[#1e3a8a]/70 py-3.5">Campaign</TableHead>
+                              <TableHead className="font-semibold text-xs uppercase tracking-wider text-[#1e3a8a]/70 text-center py-3.5">Cadence</TableHead>
+                              <TableHead className="font-semibold text-xs uppercase tracking-wider text-[#1e3a8a]/70 py-3.5">Timeline</TableHead>
+                              <TableHead className="text-right font-semibold text-xs uppercase tracking-wider text-[#1e3a8a]/70 py-3.5">Actions</TableHead>
                             </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </div>
+                          </TableHeader>
+                          <TableBody>
+                            {collaborationsList.filter(c => c.status === "Active").map((collab) => (
+                              <TableRow key={collab.id} className="hover:bg-[#f8faff] border-b border-slate-100 last:border-b-0 transition-colors">
+                                <TableCell className="py-4">
+                                  <div className="flex items-center gap-3">
+                                    <div className="w-8 h-8 rounded-full bg-[#eef3fb] text-[#1e3a8a] font-bold text-xs flex items-center justify-center flex-shrink-0">
+                                      {(collab.creator_name || "C").charAt(0).toUpperCase()}
+                                    </div>
+                                    <span className="font-semibold text-sm text-[#1e3a8a]">{collab.creator_name}</span>
+                                  </div>
+                                </TableCell>
+                                <TableCell className="text-sm font-medium text-slate-700 py-4">
+                                  {collab.campaign_title || "General"}
+                                </TableCell>
+                                <TableCell className="text-center py-4">
+                                  <span className="bg-[#fef9e7] text-[#92400e] border border-[#f5b722]/30 px-2.5 py-1 rounded-full text-xs font-semibold">
+                                    {collab.posts_per_month} / mo
+                                  </span>
+                                </TableCell>
+                                <TableCell className="text-xs text-slate-600 py-4">
+                                  <div className="flex flex-col gap-0.5">
+                                    <span className="font-medium text-slate-700">Start: {format(new Date(collab.start_date || new Date()), "MMM d, yyyy")}</span>
+                                    {collab.end_date && <span className="text-slate-400">End: {format(new Date(collab.end_date), "MMM d, yyyy")}</span>}
+                                  </div>
+                                </TableCell>
+                                <TableCell className="text-right py-4">
+                                  <div className="flex items-center justify-end gap-2">
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm" 
+                                      className="h-8 text-xs font-semibold border-[#1e3a8a]/20 text-[#1e3a8a] hover:bg-[#eef3fb] rounded-xl"
+                                      onClick={() => handleViewCollabDeliverables(collab.id)}
+                                    >
+                                      View Deliverables
+                                    </Button>
+                                    <Button variant="ghost" size="sm" className="h-8 px-2 text-slate-400 hover:text-[#1e3a8a] hover:bg-[#eef3fb] rounded-lg">
+                                      <MoreHorizontal className="w-4 h-4" />
+                                    </Button>
+                                  </div>
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </div>
+                    </Card>
                   )}
                 </section>
               </div>
@@ -770,30 +823,30 @@ export function BrandDashboardContent({ activeTab, onTabChange, userId }: { acti
             
             {/* Deliverables Modal */}
             <Dialog open={isDeliverablesModalOpen} onOpenChange={setIsDeliverablesModalOpen}>
-              <DialogContent className="max-w-2xl">
+              <DialogContent className="max-w-2xl bg-white text-slate-900 border-slate-200 rounded-2xl">
                 <DialogHeader>
-                  <DialogTitle>Collaboration Deliverables</DialogTitle>
-                  <DialogDescription>Review content submitted for this collaboration</DialogDescription>
+                  <DialogTitle className="text-lg font-bold text-[#1e3a8a]">Collaboration Deliverables</DialogTitle>
+                  <DialogDescription className="text-slate-500">Review content submitted for this collaboration</DialogDescription>
                 </DialogHeader>
                 
                 <div className="py-4">
                   {isDeliverablesLoading ? (
                     <div className="flex justify-center py-8">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1e3a8a]"></div>
                     </div>
                   ) : collabDeliverables.length === 0 ? (
-                    <p className="text-center text-muted-foreground py-8 italic">No deliverables submitted yet.</p>
+                    <p className="text-center text-slate-500 py-8 italic">No deliverables submitted yet.</p>
                   ) : (
-                    <div className="space-y-4 max-h-[60vh] overflow-auto">
+                    <div className="space-y-3 max-h-[60vh] overflow-auto">
                       {collabDeliverables.map((d) => (
-                        <div key={d.id} className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-accent/50 transition">
+                        <div key={d.id} className="flex items-center justify-between p-4 border border-slate-200 rounded-xl bg-[#f8faff]/60 hover:bg-[#eef3fb]/60 transition">
                           <div>
-                            <p className="font-semibold">{d.type}</p>
-                            <p className="text-xs text-muted-foreground">Uploaded: {new Date(d.uploaded_at).toLocaleDateString()}</p>
-                            <span className={`mt-2 inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
-                              d.status === "Approved" ? "bg-green-100 text-green-800" :
-                              d.status === "Pending" ? "bg-yellow-100 text-yellow-800" :
-                              "bg-red-100 text-red-800"
+                            <p className="font-semibold text-[#1e3a8a]">{d.type}</p>
+                            <p className="text-xs text-slate-500 mt-0.5">Uploaded: {new Date(d.uploaded_at).toLocaleDateString()}</p>
+                            <span className={`mt-2 inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                              d.status === "Approved" ? "bg-emerald-50 text-emerald-700 border border-emerald-200" :
+                              d.status === "Pending" ? "bg-[#fef3c7] text-[#92400e] border border-[#f5b722]/30" :
+                              "bg-rose-50 text-rose-700 border border-rose-200"
                             }`}>
                               {d.status}
                             </span>
@@ -801,10 +854,10 @@ export function BrandDashboardContent({ activeTab, onTabChange, userId }: { acti
                           <Button 
                             variant="default" 
                             size="sm" 
-                            className="bg-primary hover:bg-primary/90"
+                            className="bg-[#1e3a8a] hover:bg-[#1e3a8a]/90 text-white rounded-xl"
                             onClick={() => handleViewDeliverable(d.url)}
                           >
-                            <LinkIcon className="w-4 h-4 mr-2" />
+                            <LinkIcon className="w-4 h-4 mr-2 text-[#f5b722]" />
                             Review Content
                           </Button>
                         </div>
@@ -814,7 +867,7 @@ export function BrandDashboardContent({ activeTab, onTabChange, userId }: { acti
                 </div>
                 
                 <DialogFooter>
-                  <Button variant="outline" onClick={() => setIsDeliverablesModalOpen(false)}>
+                  <Button variant="outline" className="rounded-xl border-slate-200 text-slate-700" onClick={() => setIsDeliverablesModalOpen(false)}>
                     Close
                   </Button>
                 </DialogFooter>
